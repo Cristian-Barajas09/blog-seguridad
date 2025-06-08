@@ -1,7 +1,7 @@
 import matter from "gray-matter";
 import { PostSchema } from "../schemas";
 
-export async function getPosts(query: string) {
+export async function getPosts(query: string | null) {
     const postFiles = import.meta.glob("../../../posts/*.md", { query: "?raw", import: 'default', eager: true })
 
 

@@ -38,7 +38,6 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 
   return (
     <>
-
       <main  className="container">
         <section className="header">
           {/** Header use tailwind */}
