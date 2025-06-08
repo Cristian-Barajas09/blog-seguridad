@@ -5,14 +5,6 @@ import { ContentArticle } from '~/blog/components/ContentArticle';
 
 export async function loader({ params }: Route.LoaderArgs) {
 
-    const markdownText = `---
-title: Hello Blog
-date: 2025-06-07
----
-# Welcome!
-
-This is my first post.
-`;
     try {
         const file = await fs.readFile(`posts/${params.postSlug}.md`, "utf-8")
         const { data, content } = matter(file);
@@ -41,13 +33,15 @@ export default async function PostPage({
 
 
     return (
-        <>
-
-
-            <article>
-                <h1>{loaderData.data.title}</h1>
+        <main className="container">
+            <article className='main'>
+                <h1
+                    className="text-3xl font-bold mb-4"
+                >
+                    {loaderData.data.title}
+                </h1>
                 <ContentArticle content={loaderData.content} />
             </article>
-        </>
+        </main>
     )
 }

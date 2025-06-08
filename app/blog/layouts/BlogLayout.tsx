@@ -4,7 +4,7 @@ export default function BlogLayout() {
 
     return (
         <>
-            <header>
+            <header className="flex items-center justify-between p-4 bg-gray-800 text-white">
                 <h1>Security's blog</h1>
                 <ul>
                     <li>
@@ -13,9 +13,9 @@ export default function BlogLayout() {
                 </ul>
             </header>
 
-            <main>
+            <div className="flex items-center justify-center p-4">
                 <Outlet />
-            </main>
+            </div>
         </>
     );
 
