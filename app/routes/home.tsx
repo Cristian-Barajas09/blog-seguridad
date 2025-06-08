@@ -1,34 +1,18 @@
 import type { Route } from "./+types/home";
-import { z } from 'zod';
-import { Welcome } from "../welcome/welcome";
-import matter from "gray-matter";
-import { Link } from "react-router";
-import { PostSchema } from "~/blog/schemas";
+import { Form, Link, useSubmit } from "react-router";
+
+import { getPosts } from "~/blog/services/posts";
+import { useEffect } from "react";
 
 
-export async function loader() {
-  
+export async function loader({ request }: Route.LoaderArgs) {
+  const url = new URL(request.url);
+  const query = url.searchParams.get('query') ?? ""
 
-  const postFiles = import.meta.glob("../../posts/*.md", { as: "raw", eager: true })
-
-  const posts = Object.entries(postFiles)
-    .map(([path, rawContent]) => {
-      const { data } = matter(rawContent as string);
-
-      const parsed = PostSchema.safeParse(data);
-      if (!parsed.success) return null;
-      const filename = path.split("/").pop()!;
-      const slug = filename.replace(/\.md$/, "");
-      return {
-        slug,
-        ...parsed.data,
-      };
-
-    })
-    .filter(Boolean)
-
+  const posts = await getPosts(query.toLowerCase());
 
   return {
+    query,
     posts
   }
 }
@@ -40,21 +24,49 @@ export function meta({ }: Route.MetaArgs) {
   ];
 }
 
-export default async function Home({ loaderData }: Route.ComponentProps) {
-  
+export default function Home({ loaderData }: Route.ComponentProps) {
+  const { query } = loaderData;
   const posts = loaderData.posts as Array<{ title: string, slug: string }>
-  
+  const submit = useSubmit();
+
+  useEffect(() => {
+    const searchField = document.getElementById("q");
+    if (searchField instanceof HTMLInputElement) {
+      searchField.value = query || "";
+    }
+  }, [query]);
+
   return (
     <>
-      <ul>
-        {
-          posts.map((post) => (
-            <li key={post.slug}>
-              <Link to={`/posts/${post.slug}`}>{post.title}</Link>
-            </li>
-          ))
-        }
-      </ul>
+
+      <section>
+        {/** Header */}
+        <Form id="search-form" role="search"
+          onChange={(event) =>{
+            submit(event.currentTarget)
+          }}
+        >
+          <input
+            aria-label="Search contacts"
+            defaultValue={query || ""}
+            id="query"
+            name="query"
+            placeholder="Search"
+            type="search"
+          />
+        </Form>
+      </section>
+      <section>
+        <ul>
+          {
+            posts.map((post) => (
+              <li key={post.slug}>
+                <Link to={`/posts/${post.slug}`}>{post.title}</Link>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
     </>
   );
 }
