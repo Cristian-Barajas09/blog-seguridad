@@ -4,3 +4,7 @@
 # React Router
 /.react-router/
 /build/
+
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
