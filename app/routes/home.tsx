@@ -36,44 +36,53 @@ export default function Home({ loaderData }: Route.ComponentProps) {
     }
   }, [query]);
 
-  return (
-    <>
-      <main  className="container">
-        <section className="header">
-          {/** Header use tailwind */}
-          <Form id="search-form" role="search"
-            onChange={(event) => {
-              submit(event.currentTarget)
-            }}
-            className="flex items-center justify-between p-4 "
-          >
-            <input
-              aria-label="Search contacts"
-              defaultValue={query || ""}
-              id="query"
-              name="query"
-              placeholder="Search"
-              type="search"
-              className="border border-gray-300 rounded p-2 w-full"
-            />
-          </Form>
-        </section>
-        <section className="sidebar">
-          Sidebar
-        </section>
-        <section className="main">
-          <ul className="list-none p-4">
-            {
-              posts.map((post) => (
-                <li
-                key={post.slug}>
-                  <Link to={`/posts/${post.slug}`}>{post.title}</Link>
-                </li>
-              ))
-            }
-          </ul>
-        </section>
-      </main>
-    </>
-  );
+  const handleSearchChange: React.FormEventHandler<HTMLFormElement> = (event) => {
+    submit(event.currentTarget)
+  }
+
+
+return (
+  <>
+    <main className="container">
+      <section className="header">
+        {/** Header use tailwind */}
+        <Form id="search-form" role="search"
+          onChange={handleSearchChange}
+          className="flex items-center justify-between p-4 "
+        >
+          <input
+            aria-label="Search contacts"
+            defaultValue={query || ""}
+            id="query"
+            name="query"
+            placeholder="Search"
+            type="search"
+            className="border border-gray-300 rounded p-2 w-full"
+          />
+        </Form>
+      </section>
+      <section className="sidebar">
+        Sidebar
+      </section>
+      <section className="main">
+        {
+          posts.length > 0 ? (
+            <ul className="list-none p-4">
+              {
+                posts.map((post) => (
+                  <li
+                    key={post.slug}>
+                    <Link to={`/posts/${post.slug}`}>{post.title}</Link>
+                  </li>
+                ))
+              }
+            </ul>
+          ) : (
+            <span>No hay publicaciones disponibles</span>
+          )
+        }
+      </section>
+    </main>
+  </>
+);
 }

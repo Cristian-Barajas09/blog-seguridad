@@ -8,7 +8,7 @@ export default function BlogLayout() {
                 <h1>Security's blog</h1>
                 <ul>
                     <li>
-                        <Link to="/">Home</Link>
+                        <Link to="/">Inicio</Link>
                     </li>
                 </ul>
             </header>
