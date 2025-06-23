@@ -7,7 +7,7 @@ import { getPosts } from '~/blog/services/posts';
 export async function loader({ params }: Route.LoaderArgs) {
 
     try {
-        const file = await fs.readFile(`posts/${params.postSlug}.md`, "utf-8")
+        const file = await fs.readFile(`app/posts/${params.postSlug}.md`, "utf-8")
         const { data, content } = matter(file);
         let otherPosts = await getPosts(null);
 
