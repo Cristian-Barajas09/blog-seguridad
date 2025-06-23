@@ -16,10 +16,12 @@ body {
 
 .container {
   grid-template-areas:
-    "header header sidebar"
-    "main main sidebar";
+    "header"
+    "main"
+    "sidebar"
+    "blank";
 
-  @apply grid grid-cols-1 md:grid-cols-3 gap-4 p-4;
+  @apply grid grid-cols-1 md:grid-cols-3 gap-4 py-2;
   @apply items-center justify-items-center w-full h-full;
 }
 
@@ -30,10 +32,25 @@ body {
 
 .main {
   grid-area: main;
-  @apply w-full h-full rounded bg-gray-50 dark:bg-gray-900 p-4 overflow-y-auto;
+  @apply w-full h-full rounded bg-gray-50 dark:bg-gray-900 p-2 overflow-y-auto;
 }
 
 .sidebar {
   grid-area: sidebar;
-  @apply w-full h-full rounded bg-gray-200 dark:bg-gray-700 p-4 overflow-y-auto;
+  @apply w-full h-full rounded p-4 overflow-y-auto;
+}
+
+
+
+@media (width >= 48rem) {
+  .container {
+    grid-template-areas:
+      "header header sidebar"
+      "main main sidebar"
+      "main main sidebar";
+  }
+
+  .sidebar {
+    @apply h-full;
+  }
 }

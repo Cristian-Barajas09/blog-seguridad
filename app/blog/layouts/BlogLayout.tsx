@@ -13,7 +13,7 @@ export default function BlogLayout() {
                 </ul>
             </header>
 
-            <div className="flex items-center justify-center p-4">
+            <div className="flex items-center justify-center p-2">
                 <Outlet />
             </div>
         </>
