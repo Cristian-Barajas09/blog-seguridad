@@ -4,8 +4,6 @@ import type { Route } from "./+types/post";
 import { ContentArticle } from '~/blog/components/ContentArticle';
 import { getPost, getPosts } from '~/blog/services/posts';
 
-const postFiles = import.meta.glob("../posts/*.md", { query: "?raw", import: 'default', eager: true })
-
 
 export async function loader({ params }: Route.LoaderArgs) {
 
