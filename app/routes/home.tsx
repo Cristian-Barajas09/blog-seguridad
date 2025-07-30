@@ -62,7 +62,6 @@ return (
         </Form>
       </section>
       <section className="sidebar">
-        Sidebar
       </section>
       <section className="main">
         {
@@ -71,7 +70,9 @@ return (
               {
                 posts.map((post) => (
                   <li
-                    key={post.slug}>
+                    key={post.slug}
+                    className="mb-2 p-2 bg-gray-100 rounded hover:bg-gray-200 transition-colors dark:bg-gray-800 dark:hover:bg-gray-700"
+                    >
                     <Link to={`/posts/${post.slug}`}>{post.title}</Link>
                   </li>
                 ))

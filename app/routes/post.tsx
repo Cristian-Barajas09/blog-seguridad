@@ -45,10 +45,10 @@ export default function PostPage({
                     <ContentArticle content={loaderData.content} />
                 </article>
             </section>
-            <section className='sidebar'>
+            <section className='sidebar bg-gray-200 dark:bg-gray-700'>
                 {
                     loaderData.selectedPosts.map((post) => (
-                        <div key={post!.slug} className="">
+                        <div key={post!.slug} className="p-2 mb-2 bg-gray-100 rounded hover:bg-gray-200 transition-colors dark:bg-gray-800 dark:hover:bg-gray-700">
                             <h2 className="">
                                 <a href={`/posts/${post!.slug}`}>{post!.title}</a>
                             </h2>
